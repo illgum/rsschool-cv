@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+.main {
+  margin: 100px;
+}
+
+.info-block {
+  margin: 30px;
+}
+
+.info {
+  font-family: Poppins;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.header-1 {
+  font-family: Poppins;
+  font-weight: 400;
+  line-height: 11px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.header-3 {
+  font-family: Poppins;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.contacts {
+  text-decoration: none;
+}

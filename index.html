@@ -2,25 +2,33 @@
 <html lang="en">
   <head>
     <title>Ilgam Arslanov</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li>About me</li>
-          <li>Contacts</li>
-          <li>Skills</li>
-          <li>Code</li>
-          <li>Projects</li>
-          <li>Education</li>
+    <header class="header">
+      <nav class="navigation">
+        <ul class="navigation_list">
+          <li class="navigation_item"><a href="#about">About me</a></li>
+          <li class="navigation_item"><a href=""></a>Contacts</li>
+          <li class="navigation_item"><a href=""></a>Skills</li>
+          <li class="navigation_item"><a href=""></a>Code</li>
+          <li class="navigation_item"><a href=""></a>Projects</li>
+          <li class="navigation_item"><a href=""></a>Education</li>
         </ul>
       </nav>
     </header>
     <main>
-      <div class="About">
+      <section class="about" id="about">
         <h3>About me</h3>
         <img
-          src="C:\git\rschool-cvS0\rsschool-cv\sources\img\personal_photo.jpg"
+          class="avatar"
+          src="/sources/img/personal_photo.jpg"
           alt="Ilgam Arslanov"
         />
         <h1>Ilgam Arslanov</h1>
@@ -31,45 +39,176 @@
           content-maker and now I learn JS to be front-end developer. I am
           studying a course at RSschool in the direction of frontend
         </p>
-      </div>
-      <div class="Contacts">
+      </section>
+      <section class="Contacts">
         <h3>Contacts</h3>
         <a href="tel:+7 (927) 042 55 89">+7 (927) 042 55 89</a>
         <a href="mailto:arslanov_ilgam@mail.ru">arslanov_ilgam@mail.ru</a>
-      </div>
-      <div class="Skills">
+      </section>
+      <section class="skills">
         <h3>Skills</h3>
         <ul>
-          HTML & CSS
+          <li>HTML & CSS</li>
+          <li>JavaScript</li>
+          <li>Python</li>
+          <li>Adobe Photoshop</li>
+          <li>MS Office</li>
+          <li>Figma</li>
         </ul>
-        <ul>
-          JavaScript
-        </ul>
-        <ul>
-          Adobe Photoshop
-        </ul>
-        <ul>
-          MS Office
-        </ul>
-        <ul>
-          Figma
-        </ul>
-      </div>
-      <div class="Code">
+      </section>
+      <section class="code">
         <h3>Code examples</h3>
-      </div>
-      <div class="Projects">
+        <code>
+          <pre>
+            import datetime as dt
+            import requests
+            
+            DATABASE = {
+                'Сергей': 'Омск',
+                'Соня': 'Москва',
+                'Алексей': 'Калининград',
+                'Миша': 'Москва',
+                'Дима': 'Челябинск',
+                'Алина': 'Красноярск',
+                'Егор': 'Пермь',
+                'Коля': 'Красноярск',
+                'Артём': 'Владивосток',
+                'Петя': 'Михайловка'
+            }
+            
+            UTC_OFFSET = {
+                'Москва': 3,
+                'Санкт-Петербург': 3,
+                'Новосибирск': 7,
+                'Екатеринбург': 5,
+                'Нижний Новгород': 3,
+                'Казань': 3,
+                'Челябинск': 5,
+                'Омск': 6,
+                'Самара': 4,
+                'Ростов-на-Дону': 3,
+                'Уфа': 5,
+                'Красноярск': 7,
+                'Воронеж': 3,
+                'Пермь': 5,
+                'Волгоград': 3,
+                'Краснодар': 3,
+                'Калининград': 2,
+                'Владивосток': 10
+            }
+            
+            
+            def format_count_friends(count_friends):
+                if count_friends == 1:
+                    return '1 друг'
+                elif 2 <= count_friends <= 4:
+                    return f'{count_friends} друга'
+                else:
+                    return f'{count_friends} друзей'
+            
+            
+            def what_time(city):
+                offset = UTC_OFFSET[city]
+                city_time = dt.datetime.utcnow() + dt.timedelta(hours=offset)
+                f_time = city_time.strftime("%H:%M")
+                return f_time
+            
+            
+            def what_weather(city):
+                url = f'http://wttr.in/{city}'
+                weather_parameters = {
+                    'format': 2,
+                    'M': ''
+                }
+                try:
+                    response = requests.get(url, params=weather_parameters)
+                except requests.ConnectionError:
+                    return '<сетевая ошибка>'
+                if response.status_code == 200:
+                    return response.text
+                else:
+                    return '<ошибка на сервере погоды>'
+            
+            
+            def process_anfisa(query):
+                if query == 'сколько у меня друзей?':
+                    count = len(DATABASE)
+                    return f'У тебя {format_count_friends(count)}.'
+                elif query == 'кто все мои друзья?':
+                    friends_string = ', '.join(DATABASE)
+                    return f'Твои друзья: {friends_string}'
+                elif query == 'где все мои друзья?':
+                    unique_cities = set(DATABASE.values())
+                    cities_string = ', '.join(unique_cities)
+                    return f'Твои друзья в городах: {cities_string}'
+                else:
+                    return '<неизвестный запрос>'
+            
+            
+            def process_friend(name, query):
+                if name in DATABASE:
+                    city = DATABASE[name]
+                    if query == 'ты где?':
+                        return f'{name} в городе {city}'
+                    elif query == 'который час?':
+                        if city not in UTC_OFFSET:
+                            return f'<не могу определить время в городе {city}>'
+                        time = what_time(city)
+                        return f'Там сейчас {time}'
+                    elif query == 'как погода?':
+                        weather = what_weather(city)
+                        return weather
+                    else:
+                        return '<неизвестный запрос>'
+                else:
+                    return f'У тебя нет друга по имени {name}'
+            
+            
+            def process_query(query):
+                elements = query.split(', ')
+                if elements[0] == 'Анфиса':
+                    return process_anfisa(elements[1])
+                else:
+                    return process_friend(elements[0], elements[1])
+            
+            
+            def runner():
+                queries = [
+                    'Анфиса, сколько у меня друзей?',
+                    'Анфиса, кто все мои друзья?',
+                    'Анфиса, где все мои друзья?',
+                    'Анфиса, кто виноват?',
+                    'Коля, ты где?',
+                    'Соня, что делать?',
+                    'Антон, ты где?',
+                    'Алексей, который час?',
+                    'Артём, который час?',
+                    'Антон, который час?',
+                    'Петя, который час?',
+                    'Коля, как погода?',
+                    'Соня, как погода?',
+                    'Антон, как погода?'
+                ]
+                for query in queries:
+                    print(query, '-', process_query(query))
+            
+            runner()
+          </pre>
+        </code>
+      </section>
+      <section class="projects">
         <h3>Projects</h3>
-      </div>
-      <div class="Education">
+      </section>
+      <section class="education">
         <h3>Education</h3>
-      </div>
+      </section>
     </main>
     <footer>
       <a href="http://https://github.com/illgum">github</a>
       <p>2023</p>
       <img
-        src="/rsschool-cv/sources/img/rs_school_js.svg"
+        class="rslogo"
+        src="/sources/img/rs_school_js.svg"
         alt="rsschool_logo"
       />
       <a href="https://rs.school/js/">rsschool js</a>
